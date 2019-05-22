@@ -1,7 +1,8 @@
 <%
-  includes = []
-  language_tabs = [:http]
-  toc_footers = []
+  includes = Apitome.configuration.includes.presence
+  language_tabs = Apitome.configuration.language_tabs.presence
+  toc_footers = Apitome.configuration.footers.presence
+  page_content = yield
 %>
 
 <!DOCTYPE html>
@@ -49,8 +50,23 @@
       </div>
       <ul class="search-results"></ul>
 
-      <div id="toc">
-      </div>
+<!--       <ul id="toc" class="toc-list-h1">
+        <% Apitome::TocData.toc_data(page_content).each do |h1| %>
+          <li>
+            <a href="#<%= h1[:id] %>" class="toc-h1 toc-link" data-title="<%= h1[:title] %>"><%= h1[:content] %></a>
+            <% if h1[:children].length > 0 %>
+              <ul class="toc-list-h2">
+                <% h1[:children].each do |h2| %>
+                  <li>
+                    <a href="#<%= h2[:id] %>" class="toc-h2 toc-link" data-title="<%= h2[:title] %>"><%= h2[:content] %></a>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+          </li>
+        <% end %>
+      </ul> -->
+      <div id="toc"></div>
 
       <% if toc_footers %>
         <ul class="toc-footer">
@@ -64,7 +80,7 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <%= yield %>
+        <%= page_content %>
 
         <% includes&.each do |include| %>
           <%= partial "includes/#{include}" %>
