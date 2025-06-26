@@ -101,7 +101,7 @@ under the License.
       var language = parseURL(location.search).language;
       if (language) {
         return language;
-      } else if (jQuery.inArray(location.search.substr(1), languages) != -1) {
+      } else if (languages.indexOf(location.search.substr(1)) != -1) {
         return location.search.substr(1);
       }
     }
@@ -143,7 +143,7 @@ under the License.
       activateLanguage(presetLanguage);
 
       localStorage.setItem("language", presetLanguage);
-    } else if ((defaultLanguage !== null) && (jQuery.inArray(defaultLanguage, languages) != -1)) {
+    } else if ((defaultLanguage !== null) && (languages.indexOf(defaultLanguage) != -1)) {
       // the language was the last selected one saved in localstorage, so use that language!
       activateLanguage(defaultLanguage);
     } else {
